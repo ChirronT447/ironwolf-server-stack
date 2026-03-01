@@ -6,7 +6,7 @@ NVME_STACK="$HOME/server-stack"
 USER_NAME=$(whoami)
 STEAM_PASS="your_secure_password" # Change this before running!
 
-echo "🚀 Starting the HP Pro Mini Ultimate Setup..."
+echo "🚀 Starting your server stack setup..."
 
 # 1. System Update & Drivers (GPU + DVB-T)
 echo "📦 Updating system and installing drivers..."
