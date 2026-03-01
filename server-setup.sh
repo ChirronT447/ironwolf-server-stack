@@ -11,10 +11,18 @@ echo "🚀 Starting the HP Pro Mini Ultimate Setup..."
 # 1. System Update & Drivers (GPU + DVB-T)
 echo "📦 Updating system and installing drivers..."
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y curl intel-gpu-tools mesa-va-drivers intel-media-va-driver-non-free dvb-tools jq
+sudo apt install -y curl intel-gpu-tools mesa-va-drivers intel-media-va-driver-non-free dvb-tools jq linux-firmware
 
-# Fix for Sweex DVB-T (Firmware Download)
-sudo wget -O /lib/firmware/dvb-usb-rtl2832-02.fw https://github.com/OpenELEC/dvb-firmware/raw/master/firmware/dvb-usb-rtl2832-02.fw
+
+# Fix for Sweex DVB-T (Firmware Download) - should not be needed
+# sudo wget -O /lib/firmware/dvb-usb-rtl2832-02.fw https://github.com/OpenELEC/dvb-firmware/raw/master/firmware/dvb-usb-rtl2832-02.fw
+# Quick diagnostic check for the DVB Tuner
+echo "📡 Checking for DVB Tuner..."
+if ls -1d /dev/dvb/adapter* >/dev/null 2>&1; then
+    echo "✅ Tuner detected in /dev/dvb!"
+else
+    echo "⚠️ No tuner detected in /dev/dvb yet. Make sure it's plugged in!"
+fi
 
 # 2. Install Docker
 if ! command -v docker &> /dev/null; then
