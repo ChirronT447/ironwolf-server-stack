@@ -13,7 +13,6 @@ echo "📦 Updating system and installing drivers..."
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl intel-gpu-tools mesa-va-drivers intel-media-va-driver-non-free dvb-tools jq linux-firmware
 
-
 # Fix for Sweex DVB-T (Firmware Download) - should not be needed
 # sudo wget -O /lib/firmware/dvb-usb-rtl2832-02.fw https://github.com/OpenELEC/dvb-firmware/raw/master/firmware/dvb-usb-rtl2832-02.fw
 # Quick diagnostic check for the DVB Tuner
@@ -287,8 +286,19 @@ sudo systemctl daemon-reload
 sudo systemctl enable maintenance-on-shutdown.service
 sudo systemctl enable stack-check.service
 
+echo ""
+echo "===================================================="
+echo "⚠️  IMPORTANT: SAVE THESE CREDENTIALS ⚠️"
+echo "Your auto-generated database passwords and settings are below."
+echo "Please copy this block into a secure password manager NOW:"
 echo "----------------------------------------------------"
-echo "✅ ALL SET! Your ultimate stack script has finished."
+cat $NVME_STACK/.env
+echo "===================================================="
+echo ""
+
+echo "----------------------------------------------------"
+echo "✅ ALL SET! Your stack script has finished."
 echo "1. Log out and log back in (so Docker permissions take effect)."
 echo "2. Run: cd $NVME_STACK && docker compose up -d"
 echo "3. Remember to run './gaming-mode.sh on' before you game!"
+
