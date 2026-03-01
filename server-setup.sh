@@ -242,6 +242,22 @@ sudo systemctl daemon-reload
 sudo systemctl enable maintenance-on-shutdown.service
 sudo systemctl enable stack-check.service
 
+# 8. Install GE-Proton for Steam
+echo "🎮 Fetching the latest GE-Proton for Steam compatibility..."
+PROTON_DIR="$NVME_STACK/steam-config/compatibilitytools.d"
+mkdir -p "$PROTON_DIR"
+
+# Fetch the latest release download URL from GitHub API
+GE_URL=$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep "browser_download_url" | grep "\.tar\.gz" | cut -d '"' -f 4)
+
+if [ -n "$GE_URL" ]; then
+    echo "Downloading and extracting GE-Proton..."
+    curl -sL "$GE_URL" | tar -xz -C "$PROTON_DIR"
+    echo "✅ GE-Proton successfully installed."
+else
+    echo "⚠️ Could not automatically fetch GE-Proton. You can add it manually later."
+fi
+
 echo "----------------------------------------------------"
 echo "✅ ALL SET! Your ultimate stack script has finished."
 echo "1. Log out and log back in (so Docker permissions take effect)."
