@@ -64,6 +64,8 @@ services:
     volumes:
       - $NVME_STACK/steam-config:/home/steam/.local/share/Steam
       - $IRONWOLF/steam-library:/home/steam/SteamLibrary
+      - /dev/input:/dev/input:ro # <-- Let the container see gamepads
+      - /run/udev:/run/udev:ro   # <-- Let the container see when gamepads are plugged in
     restart: unless-stopped
 
   # PHOTOS: Immich
